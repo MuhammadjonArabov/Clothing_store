@@ -1,0 +1,61 @@
+version: '3.8'
+
+volumes:
+  postgres_data: {}
+  static_data: {}
+  media_data: {}
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:${DJANGO_PORT}
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - .:/app/
+      - static_data:/app/static/
+      - media_data:/app/media/
+    env_file: .env
+    ports:
+      - "${DJANGO_PORT}:${DJANGO_PORT}"
+    restart: always
+
+  db:
+    image: postgres:13.4-buster
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    env_file: .env
+    restart: always
+
+  redis:
+    image: redis:5.0
+    restart: always
+
+  celery_worker:
+    build: .
+    command: celery -A core worker -l info
+    depends_on:
+      - web
+      - db
+      - redis
+    volumes:
+      - .:/app/
+    env_file: .env
+    restart: always
+
+  celery_beat:
+    build: .
+    command: celery -A core beat -l info
+    depends_on:
+      - web
+      - db
+      - redis
+    volumes:
+      - .:/app/
+    env_file: .env
+    restart: always
