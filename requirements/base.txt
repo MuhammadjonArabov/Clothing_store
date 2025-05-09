@@ -8,3 +8,5 @@ djangorestframework
 django-filter
 celery
 redis
+django-allauth
+requests-oauthlib
