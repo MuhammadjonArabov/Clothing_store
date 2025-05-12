@@ -14,7 +14,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Clothing Store",
     
     # Logo to use for your site, must be present in static files, used for brand on top left
-    # "site_logo": "img/logo.png",
+    "site_logo": "img/logo.png",
     
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
     "login_logo": None,
@@ -36,7 +36,7 @@ JAZZMIN_SETTINGS = {
     
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string 
-    "search_model": ["users.User",],
+    "search_model": ["users.User", "products.Product", "orders.Order"],
     
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
     "user_avatar": None,
@@ -144,4 +144,4 @@ JAZZMIN_UI_TWEAKS = {
         "danger": "btn-danger",
         "success": "btn-success"
     }
-}
+} 

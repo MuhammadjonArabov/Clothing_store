@@ -15,7 +15,7 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     'update-usd-to-uzs-rate-every-24-hours': {
-        'task': 'path.to.update_usd_to_uzs_rate',
+        'task': 'apps.common.tasks.update_usd_to_uzs_rate',
         'schedule': crontab(minute=0, hour=0),
     },
 }

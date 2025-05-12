@@ -1,4 +1,4 @@
-django
+django>=4.2,<5.0
 psycopg2
 python-environ
 django-cors-headers
@@ -8,5 +8,3 @@ djangorestframework
 django-filter
 celery
 redis
-django-allauth
-requests-oauthlib
